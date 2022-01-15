@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (isset($_POST['loginname'])) {
+    $_SESSION['loginname'] = $_POST['loginname'];
+    header("Location: index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,11 +50,21 @@
                             Cart
                         </a>
                     </li>
+                    <li><?php if (isset($_SESSION['loginname'])): ?>
+                        <a href="logout.php">Logout</a>
+                        <?php else: ?>
+                        <a href="login.php">Login</a>
+                        <?php endif;?>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
     <div class="container-fluid text-right">
-        <strong>Hello Wilder !</strong>
+        <?php if (isset($_SESSION['loginname'])): ?>
+            <strong>Hello <?= $_SESSION['loginname'] ?> !</strong>
+        <?php else: ?>
+            Hello Wilder!
+        <?php endif; ?>
     </div>
 </header>
